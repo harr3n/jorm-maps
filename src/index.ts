@@ -1,11 +1,11 @@
-import axios from 'axios';
+import axios from "axios";
 import {
   generateKmlPlacemark,
   generateKmlStyle,
   mergeGeoJsonCollections,
-} from './utils';
-import { FeatureCollection } from './schema';
-import { uploadOrUpdateFile } from './drive';
+} from "./utils";
+import { FeatureCollection } from "./schema";
+import { uploadOrUpdateFile } from "./drive";
 
 async function fetchGeoJson(url: string): Promise<FeatureCollection> {
   try {
@@ -23,11 +23,11 @@ function geoJsonToKml(featureCollection: FeatureCollection): string {
     .map((feature) =>
       generateKmlStyle(feature.properties.id, feature.properties.style),
     )
-    .join('\n');
+    .join("\n");
 
   const kmlPlacemarks = featureCollection.features
     .map((feature) => generateKmlPlacemark(feature))
-    .join('\n');
+    .join("\n");
 
   return `
         <kml xmlns="http://www.opengis.net/kml/2.2">
@@ -42,25 +42,25 @@ function geoJsonToKml(featureCollection: FeatureCollection): string {
 }
 
 async function main() {
-  const polygonsUrl = 'https://www.vinterturism.se/api/map/geojson/polygons/';
-  const linesUrl = 'https://www.vinterturism.se/api/map/geojson/lines/';
+  const polygonsUrl = "https://www.vinterturism.se/api/map/geojson/polygons/";
+  const linesUrl = "https://www.vinterturism.se/api/map/geojson/lines/";
 
   try {
-    console.log('Fetching GeoJSON data...');
+    console.log("Fetching GeoJSON data...");
     const collections = await Promise.all([
       fetchGeoJson(polygonsUrl),
       fetchGeoJson(linesUrl),
     ]);
 
-    console.log('Merging GeoJSON collections...');
+    console.log("Merging GeoJSON collections...");
     const mergedGeoJson = mergeGeoJsonCollections([...collections]);
 
-    console.log('Converting merged GeoJSON to KML...');
+    console.log("Converting merged GeoJSON to KML...");
     const kml = geoJsonToKml(mergedGeoJson);
 
-    await uploadOrUpdateFile(kml, 'Jorm.kml');
+    await uploadOrUpdateFile(kml, "Jorm.kml");
   } catch (error) {
-    console.error('An error occurred:', error);
+    console.error("An error occurred:", error);
   }
 }
 
