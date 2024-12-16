@@ -2,6 +2,7 @@ import axios from "axios";
 import {
   generateKmlPlacemark,
   generateKmlStyle,
+  getFormattedDate,
   mergeGeoJsonCollections,
 } from "./utils";
 import { FeatureCollection } from "./schema";
@@ -57,8 +58,10 @@ async function main() {
 
     console.log("Converting merged GeoJSON to KML...");
     const kml = geoJsonToKml(mergedGeoJson);
-
-    await uploadOrUpdateFile(kml, "Jorm.kml");
+    await uploadOrUpdateFile(
+      kml,
+      `${getFormattedDate()} Regleringsområde - Frostviken.kml`,
+    );
   } catch (error) {
     console.error("An error occurred:", error);
   }

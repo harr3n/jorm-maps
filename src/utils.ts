@@ -86,10 +86,19 @@ const generateKmlPlacemark = (feature: Feature): string => {
   }
 };
 
+function getFormattedDate(date = new Date()) {
+  return new Intl.DateTimeFormat("sv-SE", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
+}
+
 export {
   rgbaToAbgr,
   coordinatesToKml,
   generateKmlStyle,
   generateKmlPlacemark,
   mergeGeoJsonCollections,
+  getFormattedDate,
 };
