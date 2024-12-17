@@ -66,7 +66,4 @@ function writeLogsToFile() {
   console.log(`Logs written to ${logFilePath}`);
 }
 
-// Write logs to file when the process exits
-process.on("exit", writeLogsToFile);
-
 export { writeLogsToFile, setupLogger };
