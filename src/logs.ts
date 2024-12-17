@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 
 // Create a folder for logs
-const logFolder = path.join(__dirname, "logs");
+const logFolder = path.join(process.cwd(), "logs");
 if (!fs.existsSync(logFolder)) {
   fs.mkdirSync(logFolder);
 }
