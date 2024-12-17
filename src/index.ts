@@ -7,6 +7,7 @@ import {
 } from "./utils";
 import { FeatureCollection } from "./schema";
 import { uploadOrUpdateFile } from "./drive";
+import { setupLogger, writeLogsToFile } from "./logs";
 
 async function fetchGeoJson(url: string): Promise<FeatureCollection> {
   try {
@@ -67,4 +68,6 @@ async function main() {
   }
 }
 
+setupLogger();
+process.on("exit", writeLogsToFile);
 main();
