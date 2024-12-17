@@ -11,8 +11,9 @@ nvm use > /dev/null 2>&1     # Activates the version specified in .nvmrc
 # Set the script directory
 SCRIPT_DIR=$(dirname "$(readlink -f "$0")")
 
-# Debugging: Confirm Node path and version
 NODE_PATH=$(which node)
+
+# Debugging: Confirm Node path and version
 echo "Using Node: $NODE_PATH" >> "$SCRIPT_DIR/logs/debug.log"
 $NODE_PATH -v >> "$SCRIPT_DIR/logs/debug.log"
 
